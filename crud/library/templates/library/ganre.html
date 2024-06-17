@@ -1,0 +1,49 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'library/css/style.css' %}">
+    <title>Genre</title>
+</head>
+<body>
+    <header>
+        <div class="head">
+            <div class="logo"><a href="{% url 'index' %}">Библиотека</a></div>
+            <div class="buttons">
+                <a class="button" href="{% url 'add_author_view' %}">Авторы</a>
+                <a class="button" href="{% url 'genre' %}">Жанры</a>
+                <a class="button" href="{% url 'books' %}">Книги</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <h3>Добавить жанр</h3>
+
+        <form class="form" action="/add_genre" method="post">
+            {% csrf_token %}
+            <input class="input" type="text" placeholder="Жанр" name="name">
+            <button>Сохранить</button>
+        </form>
+
+        <hr>
+        <h3>Жанры</h3>
+        <div class="authors_block">
+            {% for genre in genres %}
+                <div class="authors background">
+                        <div class="author_name">
+                            {{ genre.name }}
+                        </div>
+                        <div class="settings">
+                            <a class="button" href="{% url 'change_genre_view' id=genre.id %}">Изменить</a>
+                            <a class="button" href="{% url 'delete_genre' id=genre.id %}">Удалить</a>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'library/css/style.css' %}">
+    <title>Add author</title>
+</head>
+<body>
+    <header>
+        <div class="head">
+            <div class="logo"><a href="{% url 'index' %}">Библиотека</a></div>
+            <div class="buttons">
+                <a class="button" href="{% url 'add_author_view' %}">Авторы</a>
+                <a class="button" href="{% url 'genre' %}">Жанры</a>
+                <a class="button" href="{% url 'books' %}">Книги</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <h3>Изменить автора</h3>
+
+        <form class="form" action="/change_author"  method="post">
+            {% csrf_token %}
+            <input class="input" type="hidden" placeholder="ID" name="author_id" value="{{ author.id }}">
+            <input class="input" type="text" placeholder="Имя автора" name="first_name" value="{{ author.first_name }}">
+            <input class="input" type="text" placeholder="Фамилия автора" name="last_name" value="{{ author.last_name }}">
+            <input class="input" type="date" placeholder="Дата рождения" name="bdate" value="{{ author.birth_date }}">
+            <button>Сохранить</button>
+        </form>
+    </div>
+</body>
+</html>
