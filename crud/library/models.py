@@ -22,8 +22,8 @@ class Book(models.Model):
     title = models.CharField(max_length=150)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     genre = models.ManyToManyField(Genre)
-    publication_date = models.DateField(null=True, blank=True)
-    image = models.ImageField(upload_to='book/', null=True, blank=True, default='book/default.jpg')
+    publication_date = models.DateField(null=True, blank=True, auto_now_add=True)
+    image = models.ImageField(upload_to='book/', null=False, blank=False, default='book/default.png')
 
     def __str__(self):
         return self.title

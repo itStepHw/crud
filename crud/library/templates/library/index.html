@@ -21,25 +21,39 @@
         </div>
     </header>
 
+    <div class="padding">
+        <h2>Главная страница</h2>
+    </div>
+
     <div class="container">
-        <h3>Главная страница</h3>
-        <div class="book_container">
-            {% for book in books %}
-            <div class="books">
-                <div class="img_container">
-                    <p><img class="img" src="media/{{ book.image }}" alt="" srcset=""></p>
+            <div class="book_container">
+                {% for book in books %}
+                <div class="books">
+                    <div class="img_container">
+                        <p><img class="img" src="media/{{ book.image }}" alt="" srcset=""></p>
+                    </div>
+                    <div class="text_content">
+                        <p>{{ book.title }}</p>
+                        <p>{{ book.author }}</p>
+                        {% for genre in book.genre.all %}
+                            <p>{{ genre.name }}</p>
+                        {% endfor %}
+                        <p>{{ book.publication_date }}</p>
+                    </div>
                 </div>
-                <div class="text_content">
-                    <p>{{ book.title }}</p>
-                    <p>{{ book.author }}</p>
-                    {% for genre in book.genre.all %}
-                        <p>{{ genre.name }}</p>
-                    {% endfor %}
-                    <p>{{ book.publication_date }}</p>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+
+            <div class="sidebar">
+                <h2>Жанры</h2>
+                <hr>
+                <ul>
+                    {% for genre in genres %}
+                        <li><a href="{% url 'index' %}?genre={{ genre.id }}">{{ genre.name }}</a></li>
+                    {% endfor %}
+                </ul>
+
+            </div>
     </div>
 </body>
 </html>

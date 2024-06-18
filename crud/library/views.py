@@ -7,8 +7,19 @@ from .models import Book, Author, Genre
 
 
 def index(request):
-    books = Book.objects.all()
-    context = {'books': books}
+    selected_genre = request.GET.get('genre')
+
+    if selected_genre:
+        genre = Genre.objects.get(pk=selected_genre)
+
+        books = Book.objects.filter(genre=genre)
+    else:
+        books = Book.objects.all()
+
+
+
+    genres = Genre.objects.all()
+    context = {'books': books, 'genres': genres}
     return render(request, 'library/index.html', context)
 
 
